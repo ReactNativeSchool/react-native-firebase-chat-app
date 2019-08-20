@@ -1,64 +1,80 @@
 import React from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
+import firebase from 'react-native-firebase';
 
 export default class Messages extends React.Component {
   state = {
     messages: [],
   };
 
-  componentWillMount() {
-    this.setState({
-      messages: [
-        {
-          _id: 3,
-          text: 'Hello',
-          createdAt: new Date(),
-          user: {
-            _id: 3,
-            name: 'Steve',
-          },
-        },
-        {
-          _id: 2,
-          text: 'Wassup',
-          createdAt: new Date(),
-          user: {
-            _id: 1,
-            name: 'React Native',
-          },
-        },
-        {
-          _id: 1,
-          text: 'Hello developer',
-          createdAt: new Date(),
-          user: {
-            _id: 2,
-            name: 'React Native',
-          },
-        },
-        {
-          _id: 0,
-          text: 'This is a system message',
-          createdAt: new Date(Date.UTC(2016, 5, 11, 17, 20, 0)),
-          system: true,
-        },
-      ],
-    });
+  componentDidMount() {
+    const thread = this.props.navigation.getParam('thread', {});
+
+    this.removeMessageListener = firebase
+      .firestore()
+      .collection('MESSAGE_THREADS')
+      .doc(thread._id)
+      .collection('MESSAGES')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot(querySnapshot => {
+        const messages = querySnapshot.docs.map(doc => ({
+          _id: doc.id,
+          ...doc.data(),
+        }));
+
+        this.setState({messages});
+      });
   }
 
-  onSend(messages = []) {
-    this.setState(previousState => ({
-      messages: GiftedChat.append(previousState.messages, messages),
-    }));
+  componentWillUnmount() {
+    if (this.removeMessageListener) {
+      this.removeMessageListener();
+    }
   }
+
+  onSend = async (messages = []) => {
+    const thread = this.props.navigation.getParam('thread', {});
+    const user = firebase.auth().currentUser.toJSON();
+
+    await firebase
+      .firestore()
+      .collection('MESSAGE_THREADS')
+      .doc(thread._id)
+      .set(
+        {
+          latestMessage: {
+            text: messages[0].text,
+            createdAt: new Date().getTime(),
+          },
+        },
+        {merge: true},
+      );
+
+    firebase
+      .firestore()
+      .collection('MESSAGE_THREADS')
+      .doc(thread._id)
+      .collection('MESSAGES')
+      .add({
+        text: messages[0].text,
+        createdAt: new Date().getTime(),
+        user: {
+          _id: user.uid,
+          name: user.displayName,
+        },
+      });
+  };
 
   render() {
+    const user = firebase.auth().currentUser.toJSON();
+
     return (
       <GiftedChat
         messages={this.state.messages}
         onSend={messages => this.onSend(messages)}
         user={{
-          _id: 1,
+          _id: user.uid,
+          name: user.displayName,
         }}
       />
     );

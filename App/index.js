@@ -11,6 +11,7 @@ import {
 import firebase from 'react-native-firebase';
 
 import Initializing from './screens/Initializing';
+import NewThread from './screens/NewThread';
 import SignIn from './screens/SignIn';
 import Threads from './screens/Threads';
 import Messages from './screens/Messages';
@@ -51,7 +52,13 @@ const MessagingStackWithDrawer = createDrawerNavigator(
           style={{flex: 1}}
           forceInset={{top: 'always', horizontal: 'never'}}>
           <DrawerItems {...props} />
-          <Button title="Create Thread" onPress={() => alert('todo')} />
+          <Button
+            title="Create Thread"
+            onPress={() => {
+              props.navigation.navigate('NewThread');
+              props.navigation.closeDrawer();
+            }}
+          />
           <Button
             title="Sign Out"
             onPress={() =>
@@ -67,6 +74,17 @@ const MessagingStackWithDrawer = createDrawerNavigator(
   },
 );
 
+const MessagingWithDrawerAndModal = createStackNavigator(
+  {
+    Messaging: MessagingStackWithDrawer,
+    NewThread,
+  },
+  {
+    headerMode: 'none',
+    mode: 'modal',
+  },
+);
+
 const App = createSwitchNavigator({
   Initializing: {
     screen: Initializing,
@@ -75,7 +93,7 @@ const App = createSwitchNavigator({
     screen: SignIn,
   },
   Messaging: {
-    screen: MessagingStackWithDrawer,
+    screen: MessagingWithDrawerAndModal,
   },
 });
 
