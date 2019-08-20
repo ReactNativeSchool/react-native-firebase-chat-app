@@ -29,7 +29,8 @@ target 'Chat' do
 
   # RNFirebase
   pod 'Firebase/Core', '~> 6.3.0'
-  
+  pod 'Firebase/Firestore', '~> 6.3.0'
+
   target 'ChatTests' do
     inherit! :search_paths
     # Pods for testing
