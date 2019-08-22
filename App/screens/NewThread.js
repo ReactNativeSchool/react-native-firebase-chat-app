@@ -1,17 +1,24 @@
 import React from 'react';
-import {View, Button} from 'react-native';
+import {View} from 'react-native';
 
-import {TextField} from '../components/Form';
+import {TextField, Button} from '../components/Form';
 import {createNewThread} from '../firebase';
 
 export default class NewThread extends React.Component {
   state = {
     name: '',
+    loading: false,
   };
 
   handlePress = () => {
-    createNewThread(this.state.name).then(() => {
-      this.props.navigation.pop();
+    this.setState({loading: true}, () => {
+      if (this.state.name.length) {
+        createNewThread(this.state.name)
+          .then(() => {
+            this.props.navigation.pop();
+          })
+          .finally(() => this.setState({loading: false}));
+      }
     });
   };
 
@@ -22,7 +29,11 @@ export default class NewThread extends React.Component {
           placeholder="Thread Name"
           onChangeText={name => this.setState({name})}
         />
-        <Button onPress={this.handlePress} title="Create" />
+        <Button
+          onPress={this.handlePress}
+          title="Create"
+          disabled={this.state.loading}
+        />
       </View>
     );
   }

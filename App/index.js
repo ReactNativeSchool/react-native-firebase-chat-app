@@ -1,5 +1,4 @@
 import React from 'react';
-import {Button} from 'react-native';
 import {
   createStackNavigator,
   createAppContainer,
@@ -11,6 +10,8 @@ import NewThread from './screens/NewThread';
 import Threads from './screens/Threads';
 import Messages from './screens/Messages';
 
+import {HeaderIcon} from './components/HeaderIcon';
+
 const MessagingWithModal = createStackNavigator(
   {
     Messaging: createStackNavigator({
@@ -19,8 +20,8 @@ const MessagingWithModal = createStackNavigator(
         navigationOptions: ({navigation}) => ({
           headerTitle: 'Message Threads',
           headerRight: (
-            <Button
-              title="New Thread"
+            <HeaderIcon
+              iconName="add"
               onPress={() => navigation.navigate('NewThread')}
             />
           ),
@@ -39,7 +40,7 @@ const MessagingWithModal = createStackNavigator(
         navigationOptions: ({navigation}) => ({
           headerTitle: 'New Thread',
           headerRight: (
-            <Button title="Cancel" onPress={() => navigation.pop()} />
+            <HeaderIcon iconName="close" onPress={() => navigation.pop()} />
           ),
         }),
       },
