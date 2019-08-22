@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Button} from 'react-native';
-import firebase from 'react-native-firebase';
 
 import {TextField} from '../components/Form';
+import {createNewThread} from '../firebase';
 
 export default class NewThread extends React.Component {
   state = {
@@ -10,29 +10,9 @@ export default class NewThread extends React.Component {
   };
 
   handlePress = () => {
-    const messageText = `${this.state.name} created.`;
-    const createdAt = new Date().getTime();
-
-    firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .add({
-        name: this.state.name,
-        latestMessage: {
-          text: messageText,
-          createdAt,
-        },
-      })
-      .then(docRef => {
-        docRef.collection('MESSAGES').add({
-          text: messageText,
-          createdAt,
-          system: true,
-        });
-      })
-      .then(() => {
-        this.props.navigation.pop();
-      });
+    createNewThread(this.state.name).then(() => {
+      this.props.navigation.pop();
+    });
   };
 
   render() {

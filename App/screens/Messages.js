@@ -1,6 +1,7 @@
 import React from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
-import firebase from 'react-native-firebase';
+
+import {listenToMessages, createMessage, currentUser} from '../firebase';
 
 export default class Messages extends React.Component {
   state = {
@@ -10,20 +11,16 @@ export default class Messages extends React.Component {
   componentDidMount() {
     const thread = this.props.navigation.getParam('thread', {});
 
-    this.removeMessageListener = firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
+    this.removeMessageListener = listenToMessages(thread._id).onSnapshot(
+      querySnapshot => {
         const messages = querySnapshot.docs.map(doc => ({
           _id: doc.id,
           ...doc.data(),
         }));
 
         this.setState({messages});
-      });
+      },
+    );
   }
 
   componentWillUnmount() {
@@ -34,39 +31,12 @@ export default class Messages extends React.Component {
 
   onSend = async (messages = []) => {
     const thread = this.props.navigation.getParam('thread', {});
-    const user = firebase.auth().currentUser.toJSON();
 
-    await firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .set(
-        {
-          latestMessage: {
-            text: messages[0].text,
-            createdAt: new Date().getTime(),
-          },
-        },
-        {merge: true},
-      );
-
-    firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .add({
-        text: messages[0].text,
-        createdAt: new Date().getTime(),
-        user: {
-          _id: user.uid,
-          name: user.displayName,
-        },
-      });
+    createMessage(thread._id, messages[0].text);
   };
 
   render() {
-    const user = firebase.auth().currentUser.toJSON();
+    const user = currentUser();
 
     return (
       <GiftedChat

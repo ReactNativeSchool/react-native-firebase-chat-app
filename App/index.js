@@ -8,8 +8,8 @@ import {
   DrawerItems,
   SafeAreaView,
 } from 'react-navigation';
-import firebase from 'react-native-firebase';
 
+import {signOut} from './firebase';
 import Initializing from './screens/Initializing';
 import NewThread from './screens/NewThread';
 import SignIn from './screens/SignIn';
@@ -62,10 +62,7 @@ const MessagingStackWithDrawer = createDrawerNavigator(
           <Button
             title="Sign Out"
             onPress={() =>
-              firebase
-                .auth()
-                .signOut()
-                .then(() => props.navigation.navigate('SignIn'))
+              signOut().then(() => props.navigation.navigate('SignIn'))
             }
           />
         </SafeAreaView>

@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Button} from 'react-native';
-import firebase from 'react-native-firebase';
 
 import {TextField} from '../components/Form';
+import {signIn} from '../firebase';
 
 export default class SignIn extends React.Component {
   state = {
@@ -10,13 +10,8 @@ export default class SignIn extends React.Component {
   };
 
   handlePress = () => {
-    firebase
-      .auth()
-      .signInAnonymously()
-      .then(async ({user}) => {
-        await user.updateProfile({displayName: this.state.username});
-        this.props.navigation.navigate('Messaging');
-      })
+    signIn(this.state.username)
+      .then(() => this.props.navigation.navigate('Messaging'))
       .catch(err => {
         console.log('error signing in', err);
       });
