@@ -22,7 +22,7 @@ export const listenToMessages = threadId =>
     .orderBy('createdAt', 'desc');
 
 export const createMessage = async (threadId, messageText) => {
-  const user = firebase.auth().currentUser.toJSON();
+  const user = currentUser();
 
   await firebase
     .firestore()

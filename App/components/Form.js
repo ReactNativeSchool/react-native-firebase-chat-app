@@ -1,6 +1,5 @@
 import React from 'react';
 import {TextInput, StyleSheet, TouchableOpacity, Text} from 'react-native';
-import {} from 'react-native-gesture-handler';
 
 const styles = StyleSheet.create({
   input: {
