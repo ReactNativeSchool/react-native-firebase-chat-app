@@ -6568,6 +6568,11 @@ union-value@^1.0.0:
     is-extendable "^0.1.1"
     set-value "^2.0.1"
 
+unique-names-generator@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/unique-names-generator/-/unique-names-generator-3.0.0.tgz#2282d88cdef175093ac04c8edf3f89ab19469756"
+  integrity sha512-5BQhANYUKPqFnFYL1OduL7FDPiV7u5K1Lm4Z89YL4uOLH/uCNTnHkW3roFUEiEptOKt8f3uhmWnZj9w0zBXppw==
+
 universalify@^0.1.0:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-0.1.2.tgz#b646f69be3942dabcecc9d6639c80dc105efaa66"

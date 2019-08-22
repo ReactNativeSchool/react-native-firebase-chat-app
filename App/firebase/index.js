@@ -1,15 +1,16 @@
 import firebase from 'react-native-firebase';
+import {uniqueNamesGenerator} from 'unique-names-generator';
 
 // User
 export const currentUser = () => firebase.auth().currentUser.toJSON();
 
-export const signIn = username =>
+export const signIn = () =>
   firebase
     .auth()
     .signInAnonymously()
-    .then(({user}) => user.updateProfile({displayName: username}));
-
-export const signOut = () => firebase.auth().signOut();
+    .then(({user}) =>
+      user.updateProfile({displayName: uniqueNamesGenerator()}),
+    );
 
 // Messages
 export const listenToMessages = threadId =>

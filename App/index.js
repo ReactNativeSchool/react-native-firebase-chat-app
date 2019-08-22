@@ -9,10 +9,8 @@ import {
   SafeAreaView,
 } from 'react-navigation';
 
-import {signOut} from './firebase';
 import Initializing from './screens/Initializing';
 import NewThread from './screens/NewThread';
-import SignIn from './screens/SignIn';
 import Threads from './screens/Threads';
 import Messages from './screens/Messages';
 
@@ -59,12 +57,6 @@ const MessagingStackWithDrawer = createDrawerNavigator(
               props.navigation.closeDrawer();
             }}
           />
-          <Button
-            title="Sign Out"
-            onPress={() =>
-              signOut().then(() => props.navigation.navigate('SignIn'))
-            }
-          />
         </SafeAreaView>
       </ScrollView>
     ),
@@ -85,9 +77,6 @@ const MessagingWithDrawerAndModal = createStackNavigator(
 const App = createSwitchNavigator({
   Initializing: {
     screen: Initializing,
-  },
-  SignIn: {
-    screen: SignIn,
   },
   Messaging: {
     screen: MessagingWithDrawerAndModal,

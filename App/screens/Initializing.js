@@ -1,11 +1,13 @@
 import React from 'react';
 import firebase from 'react-native-firebase';
 
+import {signIn} from '../firebase';
+
 export default class Initializing extends React.Component {
   componentDidMount() {
-    this.removeAuthListener = firebase.auth().onAuthStateChanged(user => {
+    this.removeAuthListener = firebase.auth().onAuthStateChanged(async user => {
       if (!user) {
-        return this.props.navigation.navigate('SignIn');
+        return signIn();
       }
 
       return this.props.navigation.navigate('Messaging');
