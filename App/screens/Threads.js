@@ -13,6 +13,7 @@ export default class Threads extends React.Component {
     this.removeThreadListener = firebase
       .firestore()
       .collection('MESSAGE_THREADS')
+      .orderBy('latestMessage.createdAt', 'desc')
       .onSnapshot(querySnapshot => {
         const threads = querySnapshot.docs.map(doc => ({
           _id: doc.id,
@@ -32,7 +33,6 @@ export default class Threads extends React.Component {
   render() {
     return (
       <FlatList
-        // data={DATA}
         data={this.state.threads}
         keyExtractor={item => item._id}
         renderItem={({item}) => (

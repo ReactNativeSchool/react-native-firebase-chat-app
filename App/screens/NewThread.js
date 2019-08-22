@@ -10,16 +10,23 @@ export default class NewThread extends React.Component {
   };
 
   handlePress = () => {
+    const messageText = `${this.state.name} created.`;
+    const createdAt = new Date().getTime();
+
     firebase
       .firestore()
       .collection('MESSAGE_THREADS')
       .add({
         name: this.state.name,
+        latestMessage: {
+          text: messageText,
+          createdAt,
+        },
       })
       .then(docRef => {
         docRef.collection('MESSAGES').add({
-          text: `${this.state.name} created.`,
-          createdAt: new Date().getTime(),
+          text: messageText,
+          createdAt,
           system: true,
         });
       })
