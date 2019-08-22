@@ -82,3 +82,29 @@ export const createNewThread = threadName => {
       });
     });
 };
+
+// Thread Tracking
+
+export const markThreadLastRead = threadId => {
+  const user = currentUser();
+  firebase
+    .firestore()
+    .collection('USER_THREAD_TRACK')
+    .doc(user.uid)
+    .set(
+      {
+        [threadId]: {
+          lastRead: new Date().getTime(),
+        },
+      },
+      {merge: true},
+    );
+};
+
+export const listenToThreadTracking = () => {
+  const user = currentUser();
+  return firebase
+    .firestore()
+    .collection('USER_THREAD_TRACK')
+    .doc(user.uid);
+};
