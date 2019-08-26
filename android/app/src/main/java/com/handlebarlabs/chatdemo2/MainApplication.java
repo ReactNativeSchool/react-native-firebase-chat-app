@@ -1,4 +1,4 @@
-package com.handlebarlbas.chatdemo;
+package com.handlebarlabs.chatdemo2;
 
 import android.app.Application;
 import android.util.Log;
