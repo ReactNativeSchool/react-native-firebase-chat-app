@@ -2,51 +2,27 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import {ThreadRow, Separator} from '../components/ThreadRow';
-import {listenToThreads, listenToThreadTracking} from '../firebase';
 
 export default class Threads extends React.Component {
   state = {
-    threads: [],
-    threadTracking: {},
-  };
-
-  componentDidMount() {
-    this.removeThreadListener = listenToThreads().onSnapshot(querySnapshot => {
-      const threads = querySnapshot.docs.map(doc => ({
-        _id: doc.id,
-        latestMessage: {text: ''},
-        ...doc.data(),
-      }));
-      this.setState({threads});
-    });
-
-    this.removeThreadTrackingListener = listenToThreadTracking().onSnapshot(
-      querySnapshot => {
-        this.setState({threadTracking: querySnapshot.data() || {}});
+    threads: [
+      {
+        _id: '1',
+        unread: false,
+        name: 'Demo 1',
+        latestMessage: {
+          text: 'Hello, this is an example.',
+        },
       },
-    );
-  }
-
-  componentWillUnmount() {
-    if (this.removeThreadListener) {
-      this.removeThreadListener();
-    }
-
-    if (this.removeThreadTrackingListener) {
-      this.removeThreadTrackingListener();
-    }
-  }
-
-  isThreadUnread = thread => {
-    const {threadTracking} = this.state;
-    if (
-      (threadTracking && !threadTracking[thread._id]) ||
-      threadTracking[thread._id].lastRead < thread.latestMessage.createdAt
-    ) {
-      return true;
-    }
-
-    return false;
+      {
+        _id: '2',
+        unread: true,
+        name: 'Demo 2',
+        latestMessage: {
+          text: 'Hello, this is another example.',
+        },
+      },
+    ],
   };
 
   render() {
@@ -60,7 +36,7 @@ export default class Threads extends React.Component {
             onPress={() =>
               this.props.navigation.navigate('Messages', {thread: item})
             }
-            unread={this.isThreadUnread(item)}
+            unread={item.unread}
           />
         )}
         ItemSeparatorComponent={() => <Separator />}

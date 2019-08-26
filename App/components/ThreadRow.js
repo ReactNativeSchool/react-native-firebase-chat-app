@@ -57,7 +57,6 @@ export const ThreadRow = ({name, latestMessage, unread, onPress}) => (
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.nameText}>{name}</Text>
-          {/* <Text style={styles.dateText}>{latestMessage.date.toString()}</Text> */}
         </View>
         <Text style={styles.contentText}>
           {latestMessage.text.slice(0, 90)}

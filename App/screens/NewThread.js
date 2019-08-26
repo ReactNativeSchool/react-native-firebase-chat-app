@@ -2,7 +2,6 @@ import React from 'react';
 import {View} from 'react-native';
 
 import {TextField, Button} from '../components/Form';
-import {createNewThread} from '../firebase';
 
 export default class NewThread extends React.Component {
   state = {
@@ -11,15 +10,7 @@ export default class NewThread extends React.Component {
   };
 
   handlePress = () => {
-    this.setState({loading: true}, () => {
-      if (this.state.name.length) {
-        createNewThread(this.state.name)
-          .then(() => {
-            this.props.navigation.pop();
-          })
-          .finally(() => this.setState({loading: false}));
-      }
-    });
+    alert(`New thread name: ${this.state.name}`);
   };
 
   render() {
