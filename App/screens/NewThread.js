@@ -12,21 +12,28 @@ export default class NewThread extends React.Component {
 
   handlePress = () => {
     if (this.state.name.length > 0) {
-      this.setState({ loading: true }, () => {
-        firebase.firestore().collection('MESSAGE_THREADS').add({
-          name: this.state.name,
-          latestMessage: {
-            text: `${this.state.name} created.`,
-            createdAt: new Date().getTime()
-          }
-        })
-        .then(() => {
-          this.props.navigation.pop();
-        })
-        .finally(() => {
-          this.setState({ loading: false })
-        })
-      })
+      this.setState({loading: true}, () => firebase
+          .firestore()
+          .collection('MESSAGE_THREADS')
+          .add({
+            name: this.state.name,
+            latestMessage: {
+              text: `${this.state.name} created.`,
+              createdAt: new Date().getTime(),
+            },
+          })
+          .then(docRef => {
+            docRef.collection('MESSAGES').add({
+              text: `${this.state.name} created.`,
+              createdAt: new Date().getTime(),
+              system: true,
+            });
+
+            this.props.navigation.pop();
+          })
+          .finally(() => {
+            this.setState({loading: false});
+          }));
     }
   };
 
