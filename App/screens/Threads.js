@@ -15,21 +15,19 @@ export default class Threads extends React.Component {
       .collection('MESSAGE_THREADS')
       .orderBy('latestMessage.createdAt', 'desc')
       .onSnapshot(querySnapshot => {
-        const threads = querySnapshot.docs.map(doc => {
-          return {
-            _id: doc.id,
-            name: '',
-            latestMessage: { text: '' },
-            ...doc.data()
-          }
-        })
+        const threads = querySnapshot.docs.map(doc => ({
+          _id: doc.id,
+          name: '',
+          latestMessage: {text: ''},
+          ...doc.data(),
+        }));
 
-      this.setState({ threads })
-    });
+        this.setState({threads});
+      });
   }
 
   componentWillUnmount() {
-    if (this.removeThreadListener){
+    if (this.removeThreadListener) {
       this.removeThreadListener();
     }
   }
