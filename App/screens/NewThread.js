@@ -16,7 +16,8 @@ export default class NewThread extends React.Component {
         firebase.firestore().collection('MESSAGE_THREADS').add({
           name: this.state.name,
           latestMessage: {
-            text: `${this.state.name} created.`
+            text: `${this.state.name} created.`,
+            createdAt: new Date().getTime()
           }
         })
         .then(() => {
