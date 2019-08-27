@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.handlebarlabs.chatdemo2">
+  package="com.handlebarlbas.chatdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
