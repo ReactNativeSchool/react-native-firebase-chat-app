@@ -12,6 +12,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 
 import io.invertase.firebase.auth.RNFirebaseAuthPackage;
+import io.invertase.firebase.firestore.RNFirebaseFirestorePackage;
 
 import java.util.List;
 
@@ -30,6 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
       packages.add(new RNFirebaseAuthPackage());
+      packages.add(new RNFirebaseFirestorePackage());
       return packages;
     }
 

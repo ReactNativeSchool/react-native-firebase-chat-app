@@ -1,5 +1,11 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - BoringSSL-GRPC (0.0.3):
+    - BoringSSL-GRPC/Implementation (= 0.0.3)
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Implementation (0.0.3):
+    - BoringSSL-GRPC/Interface (= 0.0.3)
+  - BoringSSL-GRPC/Interface (0.0.3)
   - Crashlytics (3.13.4):
     - Fabric (~> 1.10.2)
   - DoubleConversion (1.1.6)
@@ -12,6 +18,9 @@ PODS:
     - FirebaseAnalytics (= 6.0.2)
   - Firebase/CoreOnly (6.3.0):
     - FirebaseCore (= 6.0.3)
+  - Firebase/Firestore (6.3.0):
+    - Firebase/CoreOnly
+    - FirebaseFirestore (~> 1.4.0)
   - FirebaseAnalytics (6.0.2):
     - FirebaseCore (~> 6.0)
     - FirebaseInstanceID (~> 4.2)
@@ -31,6 +40,21 @@ PODS:
   - FirebaseCore (6.0.3):
     - GoogleUtilities/Environment (~> 6.0)
     - GoogleUtilities/Logger (~> 6.0)
+  - FirebaseFirestore (1.4.2):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - FirebaseFirestore/abseil-cpp (= 1.4.2)
+    - "gRPC-C++ (= 0.0.9)"
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.901)
+    - Protobuf (~> 3.1)
+  - FirebaseFirestore/abseil-cpp (1.4.2):
+    - FirebaseAuthInterop (~> 1.0)
+    - FirebaseCore (~> 6.0)
+    - "gRPC-C++ (= 0.0.9)"
+    - leveldb-library (~> 1.20)
+    - nanopb (~> 0.3.901)
+    - Protobuf (~> 3.1)
   - FirebaseInstanceID (4.2.3):
     - FirebaseCore (~> 6.0)
     - GoogleUtilities/Environment (~> 6.0)
@@ -69,12 +93,30 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.2.5):
     - GoogleUtilities/Logger
+  - "gRPC-C++ (0.0.9)":
+    - "gRPC-C++/Implementation (= 0.0.9)"
+    - "gRPC-C++/Interface (= 0.0.9)"
+  - "gRPC-C++/Implementation (0.0.9)":
+    - "gRPC-C++/Interface (= 0.0.9)"
+    - gRPC-Core (= 1.21.0)
+    - nanopb (~> 0.3)
+  - "gRPC-C++/Interface (0.0.9)"
+  - gRPC-Core (1.21.0):
+    - gRPC-Core/Implementation (= 1.21.0)
+    - gRPC-Core/Interface (= 1.21.0)
+  - gRPC-Core/Implementation (1.21.0):
+    - BoringSSL-GRPC (= 0.0.3)
+    - gRPC-Core/Interface (= 1.21.0)
+    - nanopb (~> 0.3)
+  - gRPC-Core/Interface (1.21.0)
   - GTMSessionFetcher/Core (1.2.2)
+  - leveldb-library (1.22)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - Protobuf (3.9.0)
   - React (0.60.5):
     - React-Core (= 0.60.5)
     - React-DevSupport (= 0.60.5)
@@ -162,6 +204,7 @@ DEPENDENCIES:
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Firebase/Auth (~> 6.3.0)
   - Firebase/Core (~> 6.3.0)
+  - Firebase/Firestore (~> 6.3.0)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - React (from `../node_modules/react-native/`)
@@ -189,6 +232,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - boost-for-react-native
+    - BoringSSL-GRPC
     - Crashlytics
     - Fabric
     - Firebase
@@ -196,11 +240,16 @@ SPEC REPOS:
     - FirebaseAuth
     - FirebaseAuthInterop
     - FirebaseCore
+    - FirebaseFirestore
     - FirebaseInstanceID
     - GoogleAppMeasurement
     - GoogleUtilities
+    - "gRPC-C++"
+    - gRPC-Core
     - GTMSessionFetcher
+    - leveldb-library
     - nanopb
+    - Protobuf
 
 EXTERNAL SOURCES:
   DoubleConversion:
@@ -254,6 +303,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BoringSSL-GRPC: db8764df3204ccea016e1c8dd15d9a9ad63ff318
   Crashlytics: 2dfd686bcb918dc10ee0e76f7f853fe42c7bd552
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -262,13 +312,18 @@ SPEC CHECKSUMS:
   FirebaseAuth: 7fa2cc010b93770831a4e7a60651b52c3b8d111a
   FirebaseAuthInterop: 0ffa57668be100582bb7643d4fcb7615496c41fc
   FirebaseCore: 68f8a7f50cdae542715d4e86afa37c4067217dcb
+  FirebaseFirestore: 41a035642eb017fc7206318985501626993840bd
   FirebaseInstanceID: 8b42755db950682e7de0d167bc6fb26a57b244af
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
   GoogleAppMeasurement: a35a645835bae31b6bdc0576396bc23908f12a22
   GoogleUtilities: e7dc37039b19df7fe543479d3e4a02ac8d11bb69
+  "gRPC-C++": 9dfe7b44821e7b3e44aacad2af29d2c21f7cde83
+  gRPC-Core: c9aef9a261a1247e881b18059b84d597293c9947
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  Protobuf: 1097ca58584c8d9be81bfbf2c5ff5975648dd87a
   React: c438ccc7e14e86d4702bb92d7e262f549ffaa995
   React-Core: c76495f5c14e73c0f803b89c3fa83f804da61bd6
   React-cxxreact: f64bc64cf4682d6ea5a064f6017da72482858682
@@ -291,6 +346,6 @@ SPEC CHECKSUMS:
   RNReanimated: 9f7976535c5cde50189acd84751871f5414190b9
   yoga: 88c514f310aff89b94a14c5fbf44b95735af0cb7
 
-PODFILE CHECKSUM: 3cf5a0f9f102cfe876268cbbaf552fb6a8e1a6bb
+PODFILE CHECKSUM: 95b4e98d6667d690d101e5446e6e39ee4db0584e
 
 COCOAPODS: 1.5.3

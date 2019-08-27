@@ -1,5 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
+import firebase from 'react-native-firebase';
 
 import {TextField, Button} from '../components/Form';
 
@@ -10,7 +11,22 @@ export default class NewThread extends React.Component {
   };
 
   handlePress = () => {
-    alert(`New thread name: ${this.state.name}`);
+    if (this.state.name.length > 0) {
+      this.setState({ loading: true }, () => {
+        firebase.firestore().collection('MESSAGE_THREADS').add({
+          name: this.state.name,
+          latestMessage: {
+            text: `${this.state.name} created.`
+          }
+        })
+        .then(() => {
+          this.props.navigation.pop();
+        })
+        .finally(() => {
+          this.setState({ loading: false })
+        })
+      })
+    }
   };
 
   render() {
