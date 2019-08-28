@@ -2,11 +2,12 @@ import React from 'react';
 import {FlatList} from 'react-native';
 
 import {ThreadRow, Separator} from '../components/ThreadRow';
-import {listenToThreads} from '../firebase';
+import {listenToThreads, listenToThreadTracking} from '../firebase';
 
 export default class Threads extends React.Component {
   state = {
     threads: [],
+    threadTracking: {},
   };
 
   componentDidMount() {
@@ -20,13 +21,38 @@ export default class Threads extends React.Component {
 
       this.setState({threads});
     });
+
+    this.removeThreadListener = listenToThreadTracking().onSnapshot(
+      querySnapshot => {
+        this.setState({threadTracking: querySnapshot.data() || {}});
+      },
+    );
   }
 
   componentWillUnmount() {
     if (this.removeThreadListener) {
       this.removeThreadListener();
     }
+
+    if (this.removeThreadListener) {
+      this.removeThreadListener();
+    }
   }
+
+  isThreadUnread = thread => {
+    const {threadTracking} = this.state;
+
+    // new message in thread sicne we last checked
+    // never viewed that thread before (unread)
+    if (
+      !threadTracking[thread._id] ||
+      threadTracking[thread._id].lastRead < thread.latestMessage.createdAt
+    ) {
+      return true;
+    }
+
+    return false;
+  };
 
   render() {
     return (
@@ -39,7 +65,7 @@ export default class Threads extends React.Component {
             onPress={() =>
               this.props.navigation.navigate('Messages', {thread: item})
             }
-            unread={item.unread}
+            unread={this.isThreadUnread(item)}
           />
         )}
         ItemSeparatorComponent={() => <Separator />}
