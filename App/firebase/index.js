@@ -75,3 +75,19 @@ export const listenToThreads = () =>
     .firestore()
     .collection('MESSAGE_THREADS')
     .orderBy('latestMessage.createdAt', 'desc');
+
+export const markThreadLastRead = threadId => {
+  const user = currentUser();
+  return firebase
+    .firestore()
+    .collection('USER_THREAD_TRACK')
+    .doc(user.uid)
+    .set(
+      {
+        [threadId]: {
+          lastRead: new Date().getTime(),
+        },
+      },
+      {merge: true},
+    );
+};
