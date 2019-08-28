@@ -1,6 +1,7 @@
 import React from 'react';
 import {GiftedChat} from 'react-native-gifted-chat';
-import firebase from 'react-native-firebase';
+
+import {listenToMessages, createMessage, currentUser} from '../firebase';
 
 export default class Messages extends React.Component {
   state = {
@@ -10,13 +11,8 @@ export default class Messages extends React.Component {
   componentDidMount() {
     const thread = this.props.navigation.getParam('thread');
 
-    this.removeMessagesListener = firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
+    this.removeMessagesListener = listenToMessages(thread._id).onSnapshot(
+      querySnapshot => {
         const messages = querySnapshot.docs.map(doc => {
           const firebaseData = doc.data();
 
@@ -39,7 +35,8 @@ export default class Messages extends React.Component {
 
         console.log(messages);
         this.setState({messages});
-      });
+      },
+    );
   }
 
   componentWillUnmount() {
@@ -51,39 +48,12 @@ export default class Messages extends React.Component {
   handleSend = async messages => {
     const text = messages[0].text;
     const thread = this.props.navigation.getParam('thread');
-    const user = firebase.auth().currentUser.toJSON();
 
-    await firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .set(
-        {
-          latestMessage: {
-            text,
-            createdAt: new Date().getTime(),
-          },
-        },
-        {merge: true},
-      );
-
-    firebase
-      .firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .add({
-        text,
-        createdAt: new Date().getTime(),
-        user: {
-          _id: user.uid,
-          displayName: user.displayName,
-        },
-      });
+    return createMessage(thread._id, text);
   };
 
   render() {
-    const user = firebase.auth().currentUser.toJSON();
+    const user = currentUser();
 
     return (
       <GiftedChat
