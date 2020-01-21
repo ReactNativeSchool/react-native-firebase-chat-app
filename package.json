@@ -19,17 +19,17 @@
     "react-native-screens": "^2.0.0-alpha.27",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^2.0.15",
-    "unique-names-generator": "^3.0.0"
+    "unique-names-generator": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/runtime": "^7.6.2",
     "babel-jest": "^24.9.0",
-    "eslint": "5.16.0",
-    "eslint-config-handlebarlabs": "^0.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-handlebarlabs": "^0.0.4",
     "jest": "^24.9.0",
     "metro-react-native-babel-preset": "^0.56.0",
-    "prettier": "^1.18.2",
+    "prettier": "^1.19.1",
     "react-test-renderer": "16.9.0"
   },
   "jest": {
