@@ -35,9 +35,9 @@ target 'Chat' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
   # RNFirebase
-  pod 'Firebase/Core', '~> 6.3.0'
-  pod 'Firebase/Auth', '~> 6.3.0'
-  pod 'Firebase/Firestore', '~> 6.3.0'
+  pod 'Firebase/Core', '~> 6.13.0'
+  pod 'Firebase/Auth', '~> 6.13.0'
+  pod 'Firebase/Firestore', '~> 6.13.0'
 
   target 'ChatTests' do
     inherit! :search_paths
