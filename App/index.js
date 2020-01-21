@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  createStackNavigator,
-  createAppContainer,
-  createSwitchNavigator,
-} from 'react-navigation';
+import {createAppContainer, createSwitchNavigator} from 'react-navigation';
+import {createStackNavigator} from 'react-navigation-stack';
 
 // import Initializing from './screens/Initializing';
 import NewThread from './screens/NewThread';
@@ -19,7 +16,7 @@ const MessagingWithModal = createStackNavigator(
         screen: Threads,
         navigationOptions: ({navigation}) => ({
           headerTitle: 'Message Threads',
-          headerRight: (
+          headerRight: () => (
             <HeaderIcon
               iconName="add"
               onPress={() => navigation.navigate('NewThread')}
@@ -39,7 +36,7 @@ const MessagingWithModal = createStackNavigator(
         screen: NewThread,
         navigationOptions: ({navigation}) => ({
           headerTitle: 'New Thread',
-          headerRight: (
+          headerRight: () => (
             <HeaderIcon iconName="close" onPress={() => navigation.pop()} />
           ),
         }),
