@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import auth from '@react-native-firebase/auth';
@@ -8,42 +8,7 @@ export default ({ route }) => {
   const thread = route?.params?.thread;
   const user = auth().currentUser.toJSON();
 
-  const [messages, setMessages] = useState([]);
-
-  useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        const formattedMessages = querySnapshot.docs.map((doc) => {
-          const firebaseData = doc.data();
-
-          const data = {
-            _id: doc.id,
-            text: '',
-            createdAt: new Date().getTime(),
-            ...firebaseData,
-          };
-
-          if (!firebaseData.system) {
-            data.user = {
-              ...firebaseData.user,
-              name: firebaseData.user.displayName,
-            };
-          }
-
-          return data;
-        });
-
-        setMessages(formattedMessages);
-      });
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  const [messages] = useState([]);
 
   return (
     <View style={{ backgroundColor: '#fff', flex: 1 }}>
@@ -79,7 +44,7 @@ export default ({ route }) => {
             });
         }}
         user={{
-          _id: user.uid,
+          _id: 1,
         }}
       />
     </View>
