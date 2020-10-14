@@ -1,29 +1,13 @@
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import firestore from '@react-native-firebase/firestore';
 
 import { TextField, Button } from '../components/Form';
 
-export default ({ navigation }) => {
+export default () => {
   const [threadName, setThreadName] = useState('');
-  const [loading, setLoading] = useState(false);
 
   const handlePress = () => {
-    setLoading(true);
-    firestore()
-      .collection('MESSAGE_THREADS')
-      .add({
-        name: threadName,
-        latestMessage: {
-          text: `${threadName} created.`,
-        },
-      })
-      .then(() => {
-        navigation.pop();
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    alert(`New Thread Name: ${threadName}`);
   };
 
   return (
@@ -34,7 +18,7 @@ export default ({ navigation }) => {
         placeholder="Thread Name"
         onChangeText={(name) => setThreadName(name)}
       />
-      <Button onPress={handlePress} title="Create" disabled={loading} />
+      <Button onPress={handlePress} title="Create" />
     </View>
   );
 };
