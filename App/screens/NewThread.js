@@ -19,13 +19,6 @@ export default ({ navigation }) => {
           createdAt: new Date().getTime(),
         },
       })
-      .then((docRef) => {
-        docRef.collection('MESSAGES').add({
-          text: `${threadName} created.`,
-          createdAt: new Date().getTime(),
-          system: true,
-        });
-      })
       .then(() => {
         navigation.pop();
       })
