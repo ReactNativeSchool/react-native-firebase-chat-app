@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 import { View } from 'react-native';
 
 import { TextField, Button } from '../components/Form';
+import { createNewThread } from '../firebase';
 
-export default () => {
+export default ({ navigation }) => {
   const [threadName, setThreadName] = useState('');
-  const [loading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handlePress = () => {
-    alert(threadName);
+    setLoading(true);
+    createNewThread(threadName)
+      .then(() => {
+        navigation.pop();
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
