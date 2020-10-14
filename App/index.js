@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Initializing from './screens/Initializing';
+// import Initializing from './screens/Initializing';
 import NewThread from './screens/NewThread';
 import Threads from './screens/Threads';
 import Messages from './screens/Messages';
@@ -55,11 +55,11 @@ const NewThreadStackScreen = () => (
 
 const ModalStack = createStackNavigator();
 export default () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
-  if (!loggedIn) {
-    return <Initializing onHasUser={() => setLoggedIn(true)} />;
-  }
+  // if (!loggedIn) {
+  //   return <Initializing onHasUser={() => setLoggedIn(true)} />;
+  // }
 
   return (
     <NavigationContainer>
