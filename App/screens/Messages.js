@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-
-import { listenToMessages, createMessage, currentUser } from '../firebase';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default ({ route }) => {
   const thread = route?.params?.thread;
-  const user = currentUser();
+  const user = auth().currentUser.toJSON();
 
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    const unsubscribe = listenToMessages(thread._id).onSnapshot(
-      (querySnapshot) => {
+    const unsubscribe = firestore()
+      .collection('MESSAGE_THREADS')
+      .doc(thread._id)
+      .collection('MESSAGES')
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((querySnapshot) => {
         const formattedMessages = querySnapshot.docs.map((doc) => {
           const firebaseData = doc.data();
 
@@ -34,8 +38,7 @@ export default ({ route }) => {
         });
 
         setMessages(formattedMessages);
-      },
-    );
+      });
 
     return () => {
       unsubscribe();
@@ -48,7 +51,32 @@ export default ({ route }) => {
         messages={messages}
         onSend={(newMessages) => {
           const text = newMessages[0].text;
-          createMessage(thread._id, text);
+          firestore()
+            .collection('MESSAGE_THREADS')
+            .doc(thread._id)
+            .set(
+              {
+                latestMessage: {
+                  text,
+                  createdAt: new Date().getTime(),
+                },
+              },
+              { merge: true },
+            )
+            .then(() => {
+              return firestore()
+                .collection('MESSAGE_THREADS')
+                .doc(thread._id)
+                .collection('MESSAGES')
+                .add({
+                  text,
+                  createdAt: new Date().getTime(),
+                  user: {
+                    _id: user.uid,
+                    displayName: user.displayName,
+                  },
+                });
+            });
         }}
         user={{
           _id: user.uid,
