@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-firebase/app": "^8.4.5",
+    "@react-native-firebase/auth": "^9.3.0",
+    "@react-native-firebase/firestore": "^7.8.6",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
     "react": "16.13.1",
@@ -19,7 +22,8 @@
     "react-native-gifted-chat": "^0.16.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
-    "react-native-screens": "^2.11.0"
+    "react-native-screens": "^2.11.0",
+    "unique-names-generator": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
