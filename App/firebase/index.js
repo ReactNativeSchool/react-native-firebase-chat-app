@@ -77,3 +77,17 @@ export const signIn = () => {
       });
     });
 };
+
+export const markThreadLastRead = threadId => {
+  const user = currentUser();
+
+  return firestore()
+    .collection('USER_THREAD_TRACK')
+    .doc(user.uid)
+    .set(
+      {
+        [threadId]: new Date().getTime(),
+      },
+      {merge: true},
+    );
+};
