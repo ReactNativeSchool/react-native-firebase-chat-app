@@ -10,6 +10,17 @@ PODS:
     - React-Core (= 0.68.0)
     - React-jsi (= 0.68.0)
     - ReactCommon/turbomodule/core (= 0.68.0)
+  - Firebase/CoreOnly (8.14.0):
+    - FirebaseCore (= 8.14.0)
+  - FirebaseCore (8.14.0):
+    - FirebaseCoreDiagnostics (~> 8.0)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+  - FirebaseCoreDiagnostics (8.14.0):
+    - GoogleDataTransport (~> 9.1)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GoogleUtilities/Logger (~> 7.7)
+    - nanopb (~> 2.30908.0)
   - Flipper (0.125.0):
     - Flipper-Folly (~> 2.6)
     - Flipper-RSocket (~> 1.4)
@@ -73,8 +84,22 @@ PODS:
     - FlipperKit/FlipperKitNetworkPlugin
   - fmt (6.2.1)
   - glog (0.3.5)
+  - GoogleDataTransport (9.1.2):
+    - GoogleUtilities/Environment (~> 7.2)
+    - nanopb (~> 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Environment (7.7.0):
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.7.0):
+    - GoogleUtilities/Environment
   - libevent (2.1.12)
+  - nanopb (2.30908.0):
+    - nanopb/decode (= 2.30908.0)
+    - nanopb/encode (= 2.30908.0)
+  - nanopb/decode (2.30908.0)
+  - nanopb/encode (2.30908.0)
   - OpenSSL-Universal (1.1.1100)
+  - PromisesObjC (2.0.0)
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -355,6 +380,9 @@ PODS:
     - React-perflogger (= 0.68.0)
   - RNCMaskedView (0.2.6):
     - React-Core
+  - RNFBApp (14.7.0):
+    - Firebase/CoreOnly (= 8.14.0)
+    - React-Core
   - RNGestureHandler (2.3.2):
     - React-Core
   - RNScreens (3.13.1):
@@ -422,6 +450,7 @@ DEPENDENCIES:
   - React-runtimeexecutor (from `../node_modules/react-native/ReactCommon/runtimeexecutor`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
+  - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -429,6 +458,9 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - CocoaAsyncSocket
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreDiagnostics
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -439,8 +471,12 @@ SPEC REPOS:
     - Flipper-RSocket
     - FlipperKit
     - fmt
+    - GoogleDataTransport
+    - GoogleUtilities
     - libevent
+    - nanopb
     - OpenSSL-Universal
+    - PromisesObjC
     - SocketRocket
     - YogaKit
 
@@ -509,6 +545,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCMaskedView:
     :path: "../node_modules/@react-native-masked-view/masked-view"
+  RNFBApp:
+    :path: "../node_modules/@react-native-firebase/app"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
@@ -522,6 +560,9 @@ SPEC CHECKSUMS:
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: d2fd875e2b24bbc350722df0df9d383cb891b9f2
   FBReactNativeSpec: 7493e074a31512df3253160059295264a84b8149
+  Firebase: 7e8fe528c161b9271d365217a74c16aaf834578e
+  FirebaseCore: b84a44ee7ba999e0f9f76d198a9c7f60a797b848
+  FirebaseCoreDiagnostics: fd0c8490f34287229c1d6c103d3a55f81ec85712
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 3d3d04a078d4f3a1b6c6916587f159dc11f232c4
@@ -533,8 +574,12 @@ SPEC CHECKSUMS:
   FlipperKit: cbdee19bdd4e7f05472a66ce290f1b729ba3cb86
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
+  GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
+  GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
+  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
+  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: bab4a7c3d7eb9553b13773ee190f279712efd1fc
   RCTTypeSafety: efbeb6e450ff6cef8e19c2cb5314c6d8bfeeef77
@@ -562,6 +607,7 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 9b1304f48e344c55bb3c36e13bf11461cb4da5d8
   ReactCommon: fab89a13b52f1ac42b59a0e4b4f76f21aea9eebe
   RNCMaskedView: c298b644a10c0c142055b3ae24d83879ecb13ccd
+  RNFBApp: 097a31d372b3db15b41c7a1a5c429433b0609e12
   RNGestureHandler: 6e757e487a4834e7280e98e9bac66d2d9c575e9c
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
