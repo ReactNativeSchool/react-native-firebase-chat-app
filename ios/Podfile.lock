@@ -10,8 +10,16 @@ PODS:
     - React-Core (= 0.68.0)
     - React-jsi (= 0.68.0)
     - ReactCommon/turbomodule/core (= 0.68.0)
+  - Firebase/Auth (8.14.0):
+    - Firebase/CoreOnly
+    - FirebaseAuth (~> 8.14.0)
   - Firebase/CoreOnly (8.14.0):
     - FirebaseCore (= 8.14.0)
+  - FirebaseAuth (8.14.0):
+    - FirebaseCore (~> 8.0)
+    - GoogleUtilities/AppDelegateSwizzler (~> 7.7)
+    - GoogleUtilities/Environment (~> 7.7)
+    - GTMSessionFetcher/Core (~> 1.5)
   - FirebaseCore (8.14.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.7)
@@ -88,10 +96,22 @@ PODS:
     - GoogleUtilities/Environment (~> 7.2)
     - nanopb (~> 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/AppDelegateSwizzler (7.7.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Network
   - GoogleUtilities/Environment (7.7.0):
     - PromisesObjC (< 3.0, >= 1.2)
   - GoogleUtilities/Logger (7.7.0):
     - GoogleUtilities/Environment
+  - GoogleUtilities/Network (7.7.0):
+    - GoogleUtilities/Logger
+    - "GoogleUtilities/NSData+zlib"
+    - GoogleUtilities/Reachability
+  - "GoogleUtilities/NSData+zlib (7.7.0)"
+  - GoogleUtilities/Reachability (7.7.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (1.7.1)
   - libevent (2.1.12)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
@@ -383,6 +403,10 @@ PODS:
   - RNFBApp (14.7.0):
     - Firebase/CoreOnly (= 8.14.0)
     - React-Core
+  - RNFBAuth (14.7.0):
+    - Firebase/Auth (= 8.14.0)
+    - React-Core
+    - RNFBApp
   - RNGestureHandler (2.3.2):
     - React-Core
   - RNScreens (3.13.1):
@@ -451,6 +475,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCMaskedView (from `../node_modules/@react-native-masked-view/masked-view`)"
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
+  - "RNFBAuth (from `../node_modules/@react-native-firebase/auth`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -459,6 +484,7 @@ SPEC REPOS:
   trunk:
     - CocoaAsyncSocket
     - Firebase
+    - FirebaseAuth
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - Flipper
@@ -473,6 +499,7 @@ SPEC REPOS:
     - fmt
     - GoogleDataTransport
     - GoogleUtilities
+    - GTMSessionFetcher
     - libevent
     - nanopb
     - OpenSSL-Universal
@@ -547,6 +574,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-masked-view/masked-view"
   RNFBApp:
     :path: "../node_modules/@react-native-firebase/app"
+  RNFBAuth:
+    :path: "../node_modules/@react-native-firebase/auth"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
   RNScreens:
@@ -561,6 +590,7 @@ SPEC CHECKSUMS:
   FBLazyVector: d2fd875e2b24bbc350722df0df9d383cb891b9f2
   FBReactNativeSpec: 7493e074a31512df3253160059295264a84b8149
   Firebase: 7e8fe528c161b9271d365217a74c16aaf834578e
+  FirebaseAuth: c5fde343630090253d3af7e2d35697b414b40202
   FirebaseCore: b84a44ee7ba999e0f9f76d198a9c7f60a797b848
   FirebaseCoreDiagnostics: fd0c8490f34287229c1d6c103d3a55f81ec85712
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
@@ -576,6 +606,7 @@ SPEC CHECKSUMS:
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: e0913149f6b0625b553d70dae12b49fc62914fd1
+  GTMSessionFetcher: 4577a4cc914a5a07c40a8a0ad0acc22080418c2d
   libevent: 4049cae6c81cdb3654a443be001fb9bdceff7913
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   OpenSSL-Universal: ebc357f1e6bc71fa463ccb2fe676756aff50e88c
@@ -608,6 +639,7 @@ SPEC CHECKSUMS:
   ReactCommon: fab89a13b52f1ac42b59a0e4b4f76f21aea9eebe
   RNCMaskedView: c298b644a10c0c142055b3ae24d83879ecb13ccd
   RNFBApp: 097a31d372b3db15b41c7a1a5c429433b0609e12
+  RNFBAuth: 85b7ad91e3783dfde011702b2b747b1fd7be7234
   RNGestureHandler: 6e757e487a4834e7280e98e9bac66d2d9c575e9c
   RNScreens: 40a2cb40a02a609938137a1e0acfbf8fc9eebf19
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
