@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, StyleSheet } from 'react-native';
+import {Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   button: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const iconMap = (iconName) => {
+const iconMap = iconName => {
   switch (iconName) {
     case 'close':
       return require('../assets/icons/close.png');
@@ -21,7 +21,7 @@ const iconMap = (iconName) => {
   }
 };
 
-export const HeaderIcon = ({ iconName, onPress }) => (
+export const HeaderIcon = ({iconName, onPress}) => (
   <TouchableOpacity onPress={onPress} style={styles.button}>
     <Image
       source={iconMap(iconName)}

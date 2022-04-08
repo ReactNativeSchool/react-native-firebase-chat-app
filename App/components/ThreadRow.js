@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 
 const styles = StyleSheet.create({
   row: {
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 
 export const Separator = () => <View style={styles.separator} />;
 
-export const ThreadRow = ({ name, latestMessage, unread, onPress }) => (
+export const ThreadRow = ({name, latestMessage, unread, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.row}>
       {unread ? (

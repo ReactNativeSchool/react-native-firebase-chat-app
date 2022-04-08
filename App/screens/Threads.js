@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { FlatList, View } from 'react-native';
+import React, {useState} from 'react';
+import {FlatList, View} from 'react-native';
 
-import { ThreadRow, Separator } from '../components/ThreadRow';
+import {ThreadRow, Separator} from '../components/ThreadRow';
 
-export default ({ navigation }) => {
+export default ({navigation}) => {
   const [threads] = useState([
     {
       _id: '1',
@@ -24,14 +24,14 @@ export default ({ navigation }) => {
   ]);
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff', paddingBottom: 50 }}>
+    <View style={{flex: 1, backgroundColor: '#fff', paddingBottom: 50}}>
       <FlatList
         data={threads}
-        keyExtractor={(item) => item._id}
-        renderItem={({ item }) => (
+        keyExtractor={item => item._id}
+        renderItem={({item}) => (
           <ThreadRow
             {...item}
-            onPress={() => navigation.navigate('Messages', { thread: item })}
+            onPress={() => navigation.navigate('Messages', {thread: item})}
           />
         )}
         ItemSeparatorComponent={() => <Separator />}

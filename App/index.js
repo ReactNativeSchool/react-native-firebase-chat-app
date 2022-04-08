@@ -1,13 +1,13 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
 // import Initializing from './screens/Initializing';
 import NewThread from './screens/NewThread';
 import Threads from './screens/Threads';
 import Messages from './screens/Messages';
 
-import { HeaderIcon } from './components/HeaderIcon';
+import {HeaderIcon} from './components/HeaderIcon';
 
 const MessagingStack = createStackNavigator();
 const MessagingStackScreen = () => (
@@ -15,7 +15,7 @@ const MessagingStackScreen = () => (
     <MessagingStack.Screen
       name="Threads"
       component={Threads}
-      options={({ navigation }) => ({
+      options={({navigation}) => ({
         title: 'Message Threads',
         headerRight: () => (
           <HeaderIcon
@@ -28,7 +28,7 @@ const MessagingStackScreen = () => (
     <MessagingStack.Screen
       name="Messages"
       component={Messages}
-      options={({ route }) => ({
+      options={({route}) => ({
         title: route?.params?.thread?.name,
         headerBackTitle: 'Back',
       })}
@@ -40,9 +40,9 @@ const NewThreadStack = createStackNavigator();
 const NewThreadStackScreen = () => (
   <NewThreadStack.Navigator>
     <NewThreadStack.Screen
-      name="NewThread"
+      name="NewThreadForm"
       component={NewThread}
-      options={({ navigation }) => ({
+      options={({navigation}) => ({
         title: 'New Thread',
         headerLeft: null,
         headerRight: () => (
@@ -63,9 +63,13 @@ export default () => {
 
   return (
     <NavigationContainer>
-      <ModalStack.Navigator mode="modal" headerMode="none">
+      <ModalStack.Navigator screenOptions={{headerShown: false}}>
         <ModalStack.Screen name="Messaging" component={MessagingStackScreen} />
-        <ModalStack.Screen name="NewThread" component={NewThreadStackScreen} />
+        <ModalStack.Screen
+          name="NewThread"
+          component={NewThreadStackScreen}
+          options={{presentation: 'modal'}}
+        />
       </ModalStack.Navigator>
     </NavigationContainer>
   );

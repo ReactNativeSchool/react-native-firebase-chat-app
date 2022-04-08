@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import {TextInput, StyleSheet, TouchableOpacity, Text} from 'react-native';
 
 const styles = StyleSheet.create({
   input: {
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export const TextField = ({ style = {}, ...props }) => (
+export const TextField = ({style = {}, ...props}) => (
   <TextInput style={[styles.input, style]} {...props} />
 );
 
-export const Button = ({ title, onPress, disabled }) => {
+export const Button = ({title, onPress, disabled}) => {
   const buttonStyles = [styles.button];
   if (disabled) {
     buttonStyles.push(styles.buttonDisabled);

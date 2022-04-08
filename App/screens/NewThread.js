@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View } from 'react-native';
+import React, {useState} from 'react';
+import {View} from 'react-native';
 
-import { TextField, Button } from '../components/Form';
+import {TextField, Button} from '../components/Form';
 
 export default () => {
   const [threadName, setThreadName] = useState('');
@@ -11,12 +11,10 @@ export default () => {
   };
 
   return (
-    <View
-      style={{ flex: 1, justifyContent: 'center', backgroundColor: '#fff' }}
-    >
+    <View style={{flex: 1, justifyContent: 'center', backgroundColor: '#fff'}}>
       <TextField
         placeholder="Thread Name"
-        onChangeText={(name) => setThreadName(name)}
+        onChangeText={name => setThreadName(name)}
       />
       <Button onPress={handlePress} title="Create" />
     </View>
