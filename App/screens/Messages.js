@@ -1,21 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {View} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
-import firestore from '@react-native-firebase/firestore';
-import auth from '@react-native-firebase/auth';
+
+import {listenToMessages, createMessage, currentUser} from '../firebase';
 
 export default ({route}) => {
   const [messages, setMessages] = useState([]);
-  const user = auth().currentUser.toJSON();
+  const user = currentUser();
   const thread = route?.params?.thread || {};
 
   useEffect(() => {
-    const unsubscribe = firestore()
-      .collection('MESSAGE_THREADS')
-      .doc(thread._id)
-      .collection('MESSAGES')
-      .orderBy('createdAt', 'desc')
-      .onSnapshot(querySnapshot => {
+    const unsubscribe = listenToMessages(thread._id).onSnapshot(
+      querySnapshot => {
         const formattedMessages = querySnapshot.docs.map(doc => {
           return {
             _id: doc.id,
@@ -27,7 +23,8 @@ export default ({route}) => {
         });
 
         setMessages(formattedMessages);
-      });
+      },
+    );
 
     return () => {
       unsubscribe();
@@ -41,32 +38,7 @@ export default ({route}) => {
         onSend={newMessages => {
           const text = newMessages[0].text;
 
-          firestore()
-            .collection('MESSAGE_THREADS')
-            .doc(thread._id)
-            .set(
-              {
-                latestMessage: {
-                  text,
-                  createdAt: new Date().getTime(),
-                },
-              },
-              {merge: true},
-            )
-            .then(() => {
-              return firestore()
-                .collection('MESSAGE_THREADS')
-                .doc(thread._id)
-                .collection('MESSAGES')
-                .add({
-                  text,
-                  createdAt: new Date().getTime(),
-                  user: {
-                    _id: user.uid,
-                    name: user.displayName,
-                  },
-                });
-            });
+          createMessage(thread._id, text);
         }}
         user={{
           _id: user.uid,
